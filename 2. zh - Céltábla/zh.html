@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>2. zh - Céltábla - Juraj Lukovics - 131557</title>
+</head>
+
+<body>
+    <div id="info" class="info">
+        <p id="pontszam"> Pontszám: 0</p>
+        <p id="pontszamkiiras">Elérhető pontszám: </p>
+        <label for="pontlevonas">Pontlevonás céltévesztés esetén</label>
+        <input name="pontlevonas" type="checkbox" checked="false" id="pontlevonas">
+        <br />
+        <label for="pontcel">Elérendő pontszám</label>
+        <select name="pontcel" id="pontcel">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+        </select>
+    </div>
+    <center>
+        <img src="celtabla.png" class="kep" id="celtabla" onmousemove="kiiras(event)" onclick="loves()">
+    </center>
+</body>
+
+</html>
+
+<script>
+    var pont = 0;
+    function kiiras(event) {
+        var rect = event.target.getBoundingClientRect();
+        var x = Math.ceil(event.clientX - rect.left - (document.getElementById("celtabla").offsetWidth/2));
+        var y = Math.ceil(event.clientY - rect.top - (document.getElementById("celtabla").offsetHeight/2));
+        if (Math.sqrt(x*x+y*y) < 27) {
+            document.getElementById("pontszamkiiras").innerHTML = "Elérhető pontszám: 5 (TELITALÁLAT!!!)";
+            return 5;
+        }
+        if (Math.sqrt(x*x+y*y) < 48 && Math.sqrt(x*x+y*y) > 26) {
+            document.getElementById("pontszamkiiras").innerHTML = "Elérhető pontszám: 4";
+            return 4;
+        }
+        if (Math.sqrt(x*x+y*y) < 69 && Math.sqrt(x*x+y*y) > 47) {
+            document.getElementById("pontszamkiiras").innerHTML = "Elérhető pontszám: 3";
+            return 3;
+        }
+        if (Math.sqrt(x*x+y*y) < 90 && Math.sqrt(x*x+y*y) > 68) {
+            document.getElementById("pontszamkiiras").innerHTML = "Elérhető pontszám: 2";
+            return 2;
+        } 
+        if (Math.sqrt(x*x+y*y) < 110 && Math.sqrt(x*x+y*y) > 89) {
+            document.getElementById("pontszamkiiras").innerHTML = "Elérhető pontszám: 1";
+            return 1;
+        } 
+        if ((Math.sqrt(x*x+y*y) > 109) && (pontlevonas.checked == false))  {
+            document.getElementById("pontszamkiiras").innerHTML = "Elérhető pontszám: 0";
+            return 0;
+        }
+        if ((Math.sqrt(x*x+y*y) > 109) && (pontlevonas.checked == true))  {
+            document.getElementById("pontszamkiiras").innerHTML = "Elérhető pontszám: -1";
+            return -1;
+        }
+    }
+    function loves() {
+        if (pont >= document.getElementById("pontcel").value) {
+            alert("Gratulálunk, sikeresen elérte a kitűzőtt pontcélt!")
+        } else {
+            pont = pont + kiiras(event);
+            document.getElementById("pontszam").innerHTML = "Pontszám: " + pont;
+        }
+    }
+</script>
+
+<style>
+    body {
+        padding: 15px;
+    }
+</style>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Stopper</title>
+    <style>
+        canvas {
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body onload="OnInitialize()">
+    <canvas id="canvas" width="600px" height="700px" onmousemove="MouseMove(event);" onmousedown="MouseDown(event);"
+        onmouseup="MouseUp(event);"></canvas>
+    <input type="button" value="Indít/Leállít" id="button" onclick="start();"></button>
+    <script>var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext("2d");
+        var timer = null;
+        var running = null;
+
+        function MouseMove(event) {
+            mx = event.offsetX;
+            my = event.offsetY;
+        }
+
+        function OnInitialize() {
+            mutato();
+            orakeret();
+            percek();
+            szamok(); 
+        }
+
+        function orakeret() {
+            //keret
+            ctx.beginPath();
+            ctx.arc(300, 350, 300, 0, Math.PI * 2);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.beginPath();
+            //kozepso karika
+            ctx.arc(300, 350, 10, 0, Math.PI * 2);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "red";
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        //vonalak
+        function percek() {
+            //hosszabb vonalak
+            var i = 12;
+            var o = 60;
+            while (i > 0) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.translate(300, 350);
+                var angle = (i * 30) * Math.PI / 180;
+                ctx.rotate(angle);
+
+                ctx.moveTo(275, 0);
+                ctx.lineTo(300, 0);
+
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "black";
+                ctx.stroke();
+                ctx.closePath();
+                ctx.restore();
+
+                i--;
+            }
+            //rovidebb vonalak
+            while (o > 0) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.translate(300, 350);
+                var angle = (o / 60) * Math.PI * 2;
+                ctx.rotate(angle);
+
+                ctx.moveTo(295, 0);
+                ctx.lineTo(300, 0);
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "black";
+                ctx.stroke();
+                ctx.closePath();
+                ctx.restore();
+
+                o--;
+            }
+        }
+
+        function szamok() {
+            //szamok
+            var skala = 15;
+            for (var i = 0; i < 12; i++) {
+                var theta = (i - 12) * (Math.PI * 2) / 12;
+                var x = 355 * 0.7 * Math.cos(theta);
+                var y = 355 * 0.7 * Math.sin(theta);
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(Math.PI / 180);
+                ctx.textBaseline = "middle";
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "black";
+                ctx.fillText(skala, 299, 345);
+                ctx.restore();
+                if (skala >= 55) {
+                    skala = 0;
+                } else {
+                    skala += 5;
+                }
+            }
+        }
+
+        var mutatoX = 300;
+        var mutatoY = 350;
+        var angle = 0;
+
+        function mutato() {
+            //mutato
+            ctx.beginPath();
+            ctx.moveTo(mutatoX, mutatoY);
+
+            x = mutatoX + (230 * Math.cos((angle - 90) * Math.PI / 180));
+            y = mutatoY + (230 * Math.sin((angle - 90) * Math.PI / 180));
+            ctx.lineTo(x, y);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "red";
+            ctx.stroke();
+        }
+
+        function update() {
+            angle+=1;
+            ctx.clearRect(0, 0, 600, 800);
+            mutato();
+            orakeret();
+            percek();
+            szamok();
+        }
+
+        function start() {
+            if (timer == null)
+                timer = setInterval(update, 1);
+            else {
+                clearInterval(timer);
+                angle = 0;
+                ctx.clearRect(0, 0, 600, 800);
+                OnInitialize();
+                timer = null;
+            }
+            if (running==null) {
+                running = 1;
+            } else {
+                running = null;
+            }
+        }
+
+        function getAngle(anchor, point) {
+            return Math.atan2(anchor.y - point.y, anchor.x - point.x) * 180 / Math.PI + 180;
+        }
+
+        function MouseUp(event) {
+            if (null == timer && running == null) {
+
+                const a = {
+                    x: 300,
+                    y: 350
+                };
+
+                const p = {
+                    x: event.offsetX,
+                    y: event.offsetY
+                };
+                angle = getAngle(a, p) + 90;
+                update();
+            }
+            else if (null == timer && running == 1) {
+                timer = setInterval(update, 1);
+            }
+        }
+
+        function MouseDown(event) {
+            if (null != timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        var isMousedown = false;
+
+        canvas.addEventListener("mousedown", function (event) {
+            isMousedown = true;
+        });
+
+        canvas.addEventListener("mouseup", function (event) {
+            isMousedown = false;
+        });
+
+        canvas.addEventListener("mousemove", function (event) {
+            if (isMousedown) {
+                setInterval(MouseUp(event), 1)
+            }
+        });
+    </script>
+
+</body>

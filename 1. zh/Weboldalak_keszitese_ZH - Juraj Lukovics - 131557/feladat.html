@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Weboldalak készítése ZH feladat - Juraj Lukovics - 131557
+    </title>
+</head>
+
+<body>
+    <p><i>Ezt az oldalt kell összeállítani HTML és CSS segítségével. Az eredményt (1 darab HTML
+            file, tehát a CSS legyen az oldalba ágyazva) a moodle-be töltsétek fel)</i></p>
+    <h1>Órarend</h1>
+    <p>Ez egy <a href="#hivatkozas">hivatkozás</a> egy könyvjelzőre, amelyre kattintva leugrunk a következő címsorra.
+    </p>
+    <table class="orarend" border="0">
+        <thead>
+            <tr>
+                <th rowspan="2">
+                </th>
+                <th colspan="6" valalign="center" style="background-color: greenyellow;">Hét napjai</th>
+            </tr>
+            <tr>
+                <td class="nap"><b>Hétfő</b></td>
+                <td class="nap" colspan="2"><b>Kedd</b></td>
+                <td class="nap"><b>Szerda</b></td>
+                <td class="nap"><b>Csütörtök</b></td>
+                <td class="nap"><b>Péntek</b></td>
+            </tr>
+        </thead>
+        <tr>
+            <td>8:00-8:45</td>
+            <td>Prog</td>
+            <td>A:Prog</td>
+            <td>B: ADB</td>
+            <td style="text-align:center;">-</td>
+            <td>Prog</td>
+            <td>ADB</td>
+        </tr>
+        <tr>
+            <td>8:50-9:35</td>
+            <td>ADB</td>
+            <td colspan="2">HTML</td>
+            <td style="text-align:center;">-</td>
+            <td>Prog</td>
+            <td>ADB</td>
+        </tr>
+    </table>
+    <h1><a id="hivatkozas"></a>Ide ugrik a hivatkozás</h1>
+    <p>Itt pedig egy kép látható, ahol a különböző pozíciókba kattintva eljuthatunk az egyes zöldségek Wikipedia oldalára.
+    </p>
+    <img src="https://thumbs.dreamstime.com/b/yellow-bell-pepper-three-vine-fresh-tomato-25557294.jpg" usemap="#kep">
+    <map name="kep">
+        <area shape="poly"
+            coords="97,166,103,178,121,145,145,134,175,121,207,121,238,125,268,134,294,143,315,153,329,160,338,171,349,184,342,194,321,200,312,208,295,218,286,234,277,257,269,280,264,304,266,322,270,349,277,372,282,388,289,397,273,404,252,405,230,407,211,406,188,399,172,394,154,396,138,399,118,390,99,380,85,366,78,344,69,322,62,306,59,278,67,239,83,230,92,215,67,183,61,173,85,153,92,161"
+            href="https://hu.wikipedia.org/wiki/Bell_paprika" target="_blank">
+        <area shape="poly"
+            coords="301,225,330,206,377,196,402,208,422,210,439,200,462,191,486,186,507,170,523,157,537,136,542,111,548,81,556,61,562,40,572,47,570,65,562,90,563,115,570,139,575,155,590,174,604,184,620,190,641,197,659,202,677,215,698,232,711,255,726,281,731,315,728,350,714,380,685,408,662,424,638,432,605,435,578,425,554,409,538,405,516,400,502,403,481,404,465,400,447,408,423,423,393,428,361,430,322,424,299,410,280,377,272,328,271,301,275,268"
+            href="https://hu.wikipedia.org/wiki/Paradicsom_(n%C3%B6v%C3%A9nyfaj)" target="_blank">
+    </map>
+    </br>
+    <br>
+    <p style="margin-left:15px;">A fentiekkel bemutatjátok, hogy tudjátok használni az alábbiakat:</p>
+    <ul>
+        <li>címsorok</li>
+        <li>hivatkozások, könyvjelzők</li>
+        <li>képek</li>
+        <li>táblázat</li>
+        <li>táblázatmező összevonások</li>
+        <li>CSS (táblázat formázása)</li>
+        <li>felsorolás</li>
+    </ul>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <p style="color: rgb(21, 134, 226); font-size: large;">A kép forrása:
+        (https://thumbs.dreamstime.com/b/yellow-bell-pepper-three-vine-fresh-tomato-25557294.jpg)</p>
+</body>
+
+</html>
+<style>
+    table.orarend th {
+        border: solid 1px black;
+    }
+
+    table.orarend {
+        border: solid black 3px;
+        border-collapse: collapse;
+    }
+
+    .nap {
+        border-bottom: dashed 1px black;
+        border-right: solid 1px;
+        border-left: solid 1px;
+    }
+
+    td {
+        border: solid 1px;
+        border-top: none;
+    }
+
+    img {
+        float: left;
+    }
+</style>

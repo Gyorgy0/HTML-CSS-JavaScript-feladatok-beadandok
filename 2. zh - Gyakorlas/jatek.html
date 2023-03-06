@@ -1,0 +1,58 @@
+<html>
+<head>
+	<title>2.ZH gyakorlás - Juraj Lukovics - 131557</title>
+	<script>
+
+		function Gombnyomas() {
+			document.getElementById("kep").addEventListener("click", Kattintas)
+			document.getElementById("kep").addEventListener("mousemove", Egermozgas)
+		}
+
+
+		function Kattintas(event) {
+			if (event.offsetX > 23 && event.offsetX < 245 && event.offsetY < 333 && event.offsetY > 37) {
+				num.value = parseInt(num.value) + 1;
+				valtozas.value = "Kecske talalat +1 pont";
+			}
+			if (event.offsetX > 417 && event.offsetX < 500 && event.offsetY < 179 && event.offsetY > 15) {
+				num.value = parseInt(num.value) + 1;
+				valtozas.value = "Kecske talalat +1 pont";
+			}
+
+			if (event.offsetX > 698 && event.offsetX < 793 && event.offsetY < 219 && event.offsetY > 21) {
+				num.value = parseInt(num.value) + 1;
+				valtozas.value = "Kecske talalat +1 pont";
+			}
+			if (event.offsetX > 634 && event.offsetX < 994 && event.offsetY < 558 && event.offsetY > 332 && csekk.checked == false) {
+				num.value = parseInt(num.value) + 1;
+				valtozas.value = "Malac talalat +1 pont";
+			}
+			if (event.offsetX > 634 && event.offsetX < 994 && event.offsetY < 558 && event.offsetY > 332 && csekk.checked == true) {
+				num.value = num.value - 5;
+				valtozas.value = "Malac vedelmet erez -5 pont";
+			}
+		}
+
+
+		function Egermozgas() {
+			var valtozas = document.getElementById("valtozas");
+			valtozas.value = "";
+		}
+
+	</script>
+</head>
+
+<body>
+	Pontszám <input type="number" value="0" min="0" max="100" id="num"></input>
+	<input type="button" value="Játék indítás" id="gombid" onclick="Gombnyomas()"></input></br>
+	<input type="checkbox" id="csekk">Malac védelmet élvez</input></br>
+	<img src="allatok.jpg" id="kep"></img></br>
+	<input type="text" size="25" id="valtozas"></input></br>
+</body>
+
+</html>
+<style>
+	body {
+		text-align: center;
+	}
+</style>

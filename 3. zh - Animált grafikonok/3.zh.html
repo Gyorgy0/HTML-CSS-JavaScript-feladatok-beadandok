@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="hu" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>3. ZH - Juraj Lukovics - 131557</title>
+    <script type="text/javascript" charset="UTF-8"></script>
+	<style media="screen">
+      *{
+        font-size: 24px;
+      }
+
+      div{
+        padding: 10px;
+      }
+      .inline{
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="600" onmousemove="getcurrentval(event);"></canvas>
+    <div>
+      érték:
+      <input type="number" id="val" value="0">
+    </div>
+    <div>
+      szín:
+      <select name="colors" id="color">
+        <option value="red">Piros</option>
+        <option value="green">Zöld</option>
+        <option value="blue">Kék</option>
+      </select>
+    </div>
+    <div>
+      <input type="button" id="button" value="Felvétel" onclick="AddNewGraph();">
+    </div>
+    <div>
+      pontos érték: <div class="inline" id="pertek">0</div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    var can, ctx, timer;
+    var height = 5;
+    var width = 3;
+    var x = 50;
+    var y = 550;
+    var step = (500.0/(width+1));
+    var values = [];
+    var coords = [];
+    var colors = [];
+    var currentheight = 0;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      can = document.getElementById('canvas');
+      ctx = can.getContext("2d");
+      DrawBG();
+    });
+
+    function getcurrentval(event){
+      if (coords.length != 0){
+        var mx = event.offsetX;
+        var my = event.offsetY;
+        for (var i = 0; i < coords.length; i++) {
+          if (coords[i][0] < mx && coords[i][1] > my && coords[i][2] > mx && coords[i][3] < my) {
+            document.getElementById("pertek").innerHTML = values[i];
+          }
+        }
+      }
+    }
+
+    function AddNewGraph(){
+      values.push(parseInt(document.getElementById('val').value));
+      var obj = [x+(values.length-1)*step+(step/3),y,x+(values.length-1)*step+(step/3)*(values.length)+step,y-values[values.length-1]];
+      coords.push(obj);
+      colors.push(document.getElementById('color').value);
+      timer = setInterval(Draw, Math.abs(1000/values[values.length-1]));
+      document.getElementById("button").disabled = "disabled";
+    }
+
+    function Draw(){
+      ctx.clearRect(0, 0, can.width, can.height);
+      DrawGraph();
+      DrawBG();
+    }
+
+    function DrawGraph(){
+      for (var i = 0; i < values.length-1; i++) {
+        ctx.beginPath();
+        ctx.fillStyle= colors[i];
+        ctx.moveTo(x+i*step+(step/3)*(i+1),y);
+        ctx.lineTo(x+i*step+(step/3)*(i+1),y-values[i]);
+        ctx.lineTo(x+i*step+(step/3)*(i+1)+step,y-values[i]);
+        ctx.lineTo(x+i*step+(step/3)*(i+1)+step,y);
+        ctx.fill();
+      }
+      var i = values.length-1;
+      ctx.beginPath();
+      ctx.fillStyle= colors[i];
+      ctx.moveTo(x+i*step+(step/3)*(i+1),y);
+      ctx.lineTo(x+i*step+(step/3)*(i+1),y-currentheight);
+      ctx.lineTo(x+i*step+(step/3)*(i+1)+step,y-currentheight);
+      ctx.lineTo(x+i*step+(step/3)*(i+1)+step,y);
+      ctx.fill();
+      if(currentheight != values[i]){
+        if(values[i]<0){
+          currentheight--;
+        } else{
+          currentheight++;
+        }
+      }
+      else {
+        clearInterval(timer);
+        currentheight = 0;
+        if (values.length != 3){
+          document.getElementById("button").disabled = "";
+        }
+      }
+    }
+
+    function DrawBG(){
+      ctx.font = "16px Arial";
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "black";
+      ctx.beginPath();
+      ctx.moveTo(50,550);
+      ctx.lineTo(50,10);
+      ctx.moveTo(50,9);
+      ctx.lineTo(44,16);
+      ctx.moveTo(50,9);
+      ctx.lineTo(56,16);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(50,550);
+      ctx.lineTo(590,550);
+      ctx.moveTo(591,550);
+      ctx.lineTo(584,544);
+      ctx.moveTo(591,550);
+      ctx.lineTo(584,556);
+      ctx.stroke();
+      ctx.fillStyle = "black";
+
+      for (var i = 1; i <= height; i++) {
+        ctx.beginPath();
+        ctx.moveTo(x-5,y-(i*(500/height)));
+        ctx.lineTo(x+5,y-(i*(500/height)));
+        ctx.stroke();
+        ctx.fillText(i*100,5,y-(i*(500/height))+5);
+      }
+    }
+  </script>
+</html>
