@@ -1,0 +1,129 @@
+body {
+	height: 100%;
+	font-family: "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+	margin: 0;
+	margin-bottom: 0%;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background-image: url("Képek/Fokapu_hatterkep.jpg"), linear-gradient(transparent, #505030 90%);
+	background-repeat: no-repeat;
+	background-blend-mode: soft-light;
+	background-size: cover;
+	background-position: center;
+	margin-bottom: 0;
+}
+
+p {
+	text-align: justify;
+}
+
+nav {
+	background-image: radial-gradient(rgb(186, 230, 104), rgb(109, 185, 58), rgb(19, 116, 6));
+	text-align: center;
+	margin-top: 200px;
+	position: relative;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+nav a {
+	display: inline-block;
+	background-image: radial-gradient(#d5d6c3, #c0e753);
+	background-blend-mode: color-burn;
+	color: black;
+	padding: 15px;
+	text-decoration: none;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+nav a.active {
+	background-color: #556;
+	color: white;
+}
+
+nav a:hover {
+	color: white;
+	background-color: #556;
+}
+
+.container {
+	width: 80%;
+	margin-left: 10%;
+	vertical-align: top;
+}
+
+.container section {
+	background-color: #fbfcbd;
+	box-shadow: 0px 0px 43px -25px rgba(0, 0, 0, 0.75);
+	width: 100%;
+	padding: 45px;
+	box-sizing: border-box;
+	border-radius: 1px;
+	vertical-align: top;
+}
+
+table.jegyek {
+	width: 80%;
+	background: #ffffff;
+	margin: 20px auto;
+	border: 1px solid #c0db9a;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border-collapse: collapse;
+	box-shadow: 1px 1px 3px rgba(209, 229, 181, 0.7);
+}
+
+table.jegyek tr {
+	border: 1px solid #c0db9a;
+}
+
+table.jegyek th {
+	padding: 5px;
+	background-color: #d5d6c3;
+}
+
+table.jegyek td {
+	padding: 5px;
+}
+
+table.nyitvatartas {
+	width: 100%;
+	background: #ffffff;
+	margin: 20px auto;
+	border: 1px solid #233608;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border-collapse: collapse;
+	box-shadow: 1px 1px 3px rgba(209, 229, 181, 0.7);
+}
+
+table.nyitvatartas tr {
+	border: 1px solid #c0db9a;
+}
+
+table.nyitvatartas th {
+	padding: 5px;
+	background-color: #d5d6c3;
+}
+
+table.nyitvatartas td {
+	padding: 5px;
+	border: 1px solid #c0db9a;
+}
+
+footer {
+	transform-style: preserve-3d;
+	background-color: #1D1D1D;
+	margin-top: 30px;
+	padding: 45px;
+	margin-bottom: 0;
+}
+
+footer f {
+	color: cornsilk;
+	float: start;
+}
