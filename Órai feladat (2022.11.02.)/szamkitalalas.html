@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Találd ki a számot! - Juraj Lukovics - 131557</title>
+    </head>
+    <body>
+        <div class="center">
+            <h1 class="cim" id="cim">Találd ki a számot!</h1>
+            <br/>
+            <div class="jatek">
+                <p class="alcim" id="alcim"></p>
+                <input type="number" onkeypress="kiertekeles()" value="0" min="0" max="100" id="inputmezo">
+                <input type="button" onclick="kiertekeles()" id="tippgomb" value="Tipp">
+                <input type="button" onclick="szabadagazda()" id="megmutatgomb" value="Szabad a gazda">
+                <p class="eredmeny" id="eredmeny">Adjon meg egy tippet!</p>
+            </div>
+            <div class="kep">
+                <img onmousemove="kiiras()" onclick="kiertekeles()" src="szamegyenes.png" alt="">
+            </div>
+    </body>
+</html>
+<script>
+    var kiszam;
+    var tippeltszam;
+    var kitalalt = 0;
+    var tippekszama = 0;
+    var ikezdet = 0; // ez a véletlen intervallum kezdete
+    var iveg = 100; // ez a véletlen intervallum vége
+    function veletlenszam() {
+        if (ikezdet > 0) {
+            kiszam = Math.floor((Math.random() * iveg) + ikezdet);
+        } else {
+            kiszam = Math.floor(Math.random() * (iveg + 1));
+        }
+        document.getElementById("alcim").innerHTML = "A kitalált szám " + ikezdet + " és " + iveg + " között van!"
+        document.getElementById("inputmezo").value = 0;
+    }
+    function kiertekeles() {
+        const inputmezo = document.getElementById("inputmezo");
+        if (event.key == "Enter" || event.key == onclick) {
+            if (inputmezo.value <= iveg && inputmezo.value >= ikezdet) {
+                var tippeltszam = inputmezo.value;
+                if (tippeltszam < kiszam && kitalalt == 0) {
+                    ++tippekszama;
+                    document.getElementById("eredmeny").innerHTML = "A " + tippeltszam + " kisebb a gondolt számnál" + "<br>" + "Tippek száma: " + tippekszama;
+                }
+                if (tippeltszam > kiszam && kitalalt == 0) {
+                    ++tippekszama;
+                    document.getElementById("eredmeny").innerHTML = "A " + tippeltszam + " nagyobb a gondolt számnál" + "<br>" + "Tippek száma: " + tippekszama;
+                }
+                if (tippeltszam == kiszam && kitalalt == 0) {
+                    ++tippekszama;
+                    document.getElementById("eredmeny").innerHTML = "Kitalálta, hogy " + kiszam + " volt a gondolt szám!" + "<br>" + "A gondolt számot " + tippekszama + " tippel sikerült kitalálni!";
+                    alert("Gratulálunk, sikeresen kitalálta a gondolt számot!\r\nHa szeretne újra játszani, töltse újra az oldalt!");
+                    kitalalt = 1;
+                }
+            } else {
+                alert("Érvénytelen számot adott meg!");
+            }
+        }
+    }
+
+    function kiiras() {
+        if (Math.floor((window.event.clientX - ((window.innerWidth-639+17+17)/2))/6) >= ikezdet && Math.floor((window.event.clientX - ((window.innerWidth-639+17+17)/2))/6) <= iveg) {
+            document.getElementById("inputmezo").value = Math.floor((window.event.clientX - ((window.innerWidth-639+17+17)/2))/6);
+        }
+    }
+
+    function szabadagazda() {
+        if (kitalalt == 0) {
+            document.getElementById("eredmeny").innerHTML = "Máskor legyen ügyesebb! A kitalált szám a/az " + kiszam + " volt!"+ "<br>" + "A játék újraindításához frissítse újra az oldalt";
+            kitalalt = 1;
+        }
+    }
+    veletlenszam();
+</script>
+<style>
+    body {
+        border: 0;
+        margin: none;
+        background-color: darkgray;
+    }
+    .center {
+        margin-left: 5%;
+        margin-right: 5%;
+        background-color: beige;
+        height: auto;
+        margin-bottom: 1%;
+        box-shadow: 10px 10px 10px gray;
+        overflow: auto;
+    }
+    .cim {
+        text-align: center;
+        padding: 15px;
+        display: block;
+        justify-content: center;
+    }
+    .kep {
+        text-align: center;
+        overflow: auto;
+        padding-top: 15px;
+        padding-bottom: 50px;
+    }
+    .jatek {
+        text-align: center;
+    }
+</style>

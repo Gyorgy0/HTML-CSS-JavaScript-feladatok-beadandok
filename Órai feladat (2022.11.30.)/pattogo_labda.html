@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pattogó labda - Juraj Lukovics - 131557</title>
+  </head>
+  <body>
+    <canvas class="canvas" id="canvas" width="700" height="500" onmousedown="megfogas()" onmouseup="elenged()"></canvas>
+    <br>
+    <label for="gravitacio">Gravitáció: </label>
+    <input type="number" min="0" value="9.81" step="0.01" id="gravitacio" name="gravitacio" />
+    <label for="pattogas">Pattogás hatékonysága: </label>
+    <input type="number" min="0" value="0.97" step="0.01" id="pattogas" name="pattogas" />
+  </body>
+  <style>
+    .canvas {
+      background-color: bisque;
+    }
+  </style>
+  <script>
+    const canvas = document.getElementById("canvas")
+    const ctx = canvas.getContext("2d");
+    var vx = 2;
+    var vy = 1;
+    var coordx = document.getElementById("canvas").width/2;
+    var coordy = document.getElementById("canvas").height/2;
+    var timer = setInterval(sebesseg, 60/1000);
+    function megfogas() {
+      var x = event.pageX - canvas.getBoundingClientRect().left;
+      var y = event.pageY - canvas.getBoundingClientRect().top;
+        if ((x <= coordx+50 || x >= coordx-50) &&
+         (y <= coordy+50 || y >= coordy-50)) {
+          coordx = x;
+          coordy = y;
+          vx = 0;
+          vy = 0;
+          g = 0;
+          document.addEventListener('mousemove', mozgatas);
+        }
+    }
+    function mozgatas() {
+      coordx = x;
+      coordy = y;
+      vx = 0;
+      vy = 0;
+      g = document.getElementById("gravitacio".value);
+    }
+    function elenged() {
+      var x = event.pageX - canvas.getBoundingClientRect().left;
+      var y = event.pageY - canvas.getBoundingClientRect().top;
+      document.removeEventListener('mousemove', mozgatas);
+      vx = (x - coordx)/25;
+      vy = (y - coordy)/25;
+    }
+    function sebesseg() {
+        var g = document.getElementById("gravitacio").value;
+        var pattanas = document.getElementById("pattogas").value;
+        vy += g*(1/100);
+        if (coordx>=(649)||coordx<=51) {
+            vx = -(pattanas*vx);
+        }
+        if (coordy>(449)||coordy<=51) {
+            vy = -(pattanas*vy);
+        }
+        coordx += vx;
+        coordy += vy;
+    }
+    function animacio() {
+        ctx.clearRect(0 ,0, 700, 500)
+        ctx.beginPath();
+        ctx.arc(coordx, coordy, 50, 0, 2*Math.PI);
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.stroke();
+        requestAnimationFrame(animacio);
+    }
+    window.requestAnimationFrame(animacio);
+  </script>
+</html>

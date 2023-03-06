@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Javascript grafikon</title>
+  </head>
+  <body onload="rajzol()">
+    <div id="kontrol">
+      <input type="text" id="ertek"/>
+      <input type="button" id="ertekgomb" value="Érték hozzáadása" onclick="graph()"/>
+    </div>
+    <canvas id="canvas" width="1000px" height="1000px"></canvas>
+  </body>
+</html>
+<style>
+  .kontrol {
+    float: left;
+    overflow: auto;
+  }
+  .canvas {
+    margin-top: auto;
+  }
+</style>
+<script>
+  const d2r = Math.PI / 180;
+  const ctx = canvas.getContext("2d");
+  var grafikon = 0;
+  var grafikonszelesseg = 25; // pixelekben megadja a grafikonok szélességét
+  var grafikonokkoztihely = 5; // pixelekben megadja a grafikonok közti helyet
+  function rajzol() {
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 2;
+    // Y tengely
+    ctx.beginPath();
+    ctx.moveTo(50, 50);
+    ctx.lineTo(50, 850);
+    ctx.moveTo(45, 65);
+    ctx.lineTo(50, 50);
+    ctx.lineTo(55, 65);
+    ctx.lineWidth = 1;
+    ctx.font = "15px Arial";
+    ctx.textAlign = "start";
+    ctx.strokeText("y", 20, 75);
+    for (i=0; i<8; i++) {
+      ctx.moveTo(45, (125+(i*100)));
+      ctx.lineTo(55, (125+(i*100)));
+      ctx.font = "15px Arial";
+      ctx.textAlign = "start";
+      ctx.strokeText((300-(i*100)), 15, (125+(i*100)));
+    }
+    ctx.stroke();
+    // X tengely
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(25, 425);
+    ctx.lineTo(700, 425);
+    ctx.moveTo(685, 420);
+    ctx.lineTo(700, 425);
+    ctx.lineTo(685, 430);
+    ctx.font = "15px Arial";
+    ctx.textAlign = "start";
+    ctx.strokeText("x", 670, 450);
+    ctx.stroke();
+  }
+  function graph() {
+    if (document.getElementById("ertek").value <= 300 && document.getElementById("ertek").value >= (-400)) {
+      var ertek = document.getElementById("ertek").value;
+      if (50+grafikonokkoztihely+(grafikon*(grafikonokkoztihely+grafikonszelesseg)) < 650) {
+        ctx.fillStyle = "red";
+        ctx.fillRect(50+grafikonokkoztihely+(grafikon*(grafikonokkoztihely+grafikonszelesseg)), 425, grafikonszelesseg, -ertek);
+        grafikon++;
+      }
+    } else {
+      alert("Kérem adjon meg egy számot 300 és -400 között!")
+    }
+  }
+</script>
